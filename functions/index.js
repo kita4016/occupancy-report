@@ -67,16 +67,14 @@ const client = new line.Client(config);
 //   })
 
 function sendPushMessage(mes) {
-    client.pushMessage('U10c2d58a0128e19ef170d219e4203e00', {
+    client.broadcast({
      type: 'text',
      text: mes,
     })
     console.log(moment().tz("Asia/Tokyo").format() + ' 送信完了：push message');
  }
 
-//  sendPushMessage(mes);
-
- exports.scheduledFunction = functions.region('asia-northeast1').pubsub.schedule('0 10 * * 1-5')
+ exports.scheduledFunction = functions.region('asia-northeast1').pubsub.schedule('0 10 5-7 1 *')
   .timeZone('Asia/Tokyo') // 必ずタイムゾーンを指定します。
   .onRun( async (context) => {
   const mes = `おはようございます！
@@ -84,6 +82,7 @@ function sendPushMessage(mes) {
 スプシに記入お願いします。
    
 https://docs.google.com/spreadsheets/d/1iaL3mKinv-LxvCZiF0NtvhwoJJz3MjCz/edit#gid=616395506`
+    // const mes = 'これはテストです'
   await sendPushMessage(mes);
 });
   exports.app = functions.region('asia-northeast1').https.onRequest(app);
