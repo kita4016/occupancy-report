@@ -74,7 +74,7 @@ function sendPushMessage(mes) {
     console.log(moment().tz("Asia/Tokyo").format() + ' 送信完了：push message');
  }
 
- exports.scheduledFunction = functions.region('asia-northeast1').pubsub.schedule('0 10 5-7 1 *')
+ exports.scheduledFunction = functions.region('asia-northeast1').pubsub.schedule('0 10 * * 1-5')
   .timeZone('Asia/Tokyo') // 必ずタイムゾーンを指定します。
   .onRun( async (context) => {
   const mes = `おはようございます！
